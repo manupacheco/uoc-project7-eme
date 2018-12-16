@@ -63,16 +63,16 @@ nav a {
   padding: 0 2em;
 } 
 
-.prod {
+.news {
   padding-bottom: 2em;
 }
 
-.prod-image img {
+.news-image img {
   width: 100%;
   height: 100%;
 }
 
-.prod-info {
+.news-info {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
