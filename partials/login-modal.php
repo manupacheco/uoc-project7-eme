@@ -17,7 +17,6 @@
             <label for="inputPassword">Password</label>
             <input type="password" class="form-control" id="inputPassword" placeholder="Password">
           </div>
-          <!-- <button type="button" class="btn btn-light" data-dismiss="modal">Close</button> -->
           <button type="submit" class="btn btn-danger">Login</button>
         </form>
       </div>
