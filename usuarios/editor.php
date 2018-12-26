@@ -1,10 +1,8 @@
 <?php
 
-session_start();
-
 if(empty($_SESSION['user'])){
     header("Location: ./index.php");
-}else if($_SESSION['user']->IdTipousuario != 1){
+}else if($_SESSION['user']->IdUsuario != 5){
     header("Location: ./index.php");
 }
 

@@ -1,6 +1,11 @@
 <?php
-  // require_once("./database/database.php");
-  // require_once("./database/client.php");
+
+  require_once("./database/database.php");
+  require_once("./database/client.php");
+
+  ini_set("display_errors", true);
+  error_reporting(E_ALL);
+
 ?>
 
 <!DOCTYPE html>
@@ -17,35 +22,6 @@
 <body>
 <?php include 'partials/navbar.php'; ?>
 
-  <?php
-    // $db = new Client($conn);
-
-    // //CARGA DE PÁGINA DE INICIO
-    // $db->loadNews();
-
-    // //FORMULARIO DE LOGIN
-    // $username = htmlspecialchars($POST['username']);
-    // $password = htmlspecialchars($POST['password']);
-
-    // if(isset($POST['login'])){
-    //   if(empty($username)){
-    //     $err = "*";
-    //   }
-    //   if(empty($password)){
-    //     $err = "*";
-    //   }
-    //   if(empty($err)){
-    //     $db->logIn($username, $password);
-    //     if(empty($_SESSION['user'])){
-    //       echo "USUARIO NO ENCONTRADO";
-    //     }
-    //   }
-    // }
-    // if(isset($POST['signin'])){
-    //   header("Location: ./signin.php");
-    // }
-  ?>
-   
   <article class="container">
     <div class="row">
       <div class="col-sm welcome">
@@ -58,43 +34,37 @@
 
     <hr>
 
-    <section class="new">
-      <div class="row">
-        <div class="col-sm-4">
-          <img src="./assets/images/noticias.jpeg" alt="imagen de noticias" class="img-fluid rounded">
-        </div>
-        <div class="col-sm-8">
-          <a href="./detail.php" class="news-title"><h3>Title nuntium</h3></a>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet blandit orci. Praesent vulputate leo velit, ac pulvinar augue sodales id. Integer gravida placerat ipsum et imperdiet. Proin at velit vitae ligula pharetra aliquet. Nulla facilisi. Mauris sollicitudin justo tortor, id hendrerit odio ultrices id. Ut eget risus laoreet, tempor libero vitae, accumsan felis. Praesent vulputate, risus in efficitur porttitor, neque magna porttitor ante, id scelerisque est nisi nec quam. Donec id ipsum odio. Fusce ut sem volutpat, elementum sapien ac, finibus nulla. Curabitur a accumsan elit.
-          </p>
-          <div class="categories">
-            <a href="#categoria" class="badge badge-danger">Genus 1</a>
-            <a href="#categoria" class="badge badge-danger">Genus 2</a>
-            <a href="#categoria" class="badge badge-danger">Genus 3</a>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="new">
-      <div class="row">
-        <div class="col-sm-4">
-          <img src="./assets/images/noticias.jpeg" alt="imagen de noticias" class="img-fluid rounded">
-        </div>
-        <div class="col-sm-8">
-          <a href="./detail.php" class="news-title"><h3>Title nuntium</h3></a>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet blandit orci. Praesent vulputate leo velit, ac pulvinar augue sodales id. Integer gravida placerat ipsum et imperdiet. Proin at velit vitae ligula pharetra aliquet. Nulla facilisi. Mauris sollicitudin justo tortor, id hendrerit odio ultrices id. Ut eget risus laoreet, tempor libero vitae, accumsan felis. Praesent vulputate, risus in efficitur porttitor, neque magna porttitor ante, id scelerisque est nisi nec quam. Donec id ipsum odio. Fusce ut sem volutpat, elementum sapien ac, finibus nulla. Curabitur a accumsan elit.
-          </p>
-          <div class="categories">
-            <a href="#categoria" class="badge badge-danger">Genus 1</a>
-            <a href="#categoria" class="badge badge-danger">Genus 2</a>
-            <a href="#categoria" class="badge badge-danger">Genus 3</a>
-          </div>
-        </div>
-      </div>
-    </section>
+  <?php
+    $db = new Client($conn);
+
+    //CARGA DE PÁGINA DE INICIO
+    $db->loadNews();
+
+    for ($i = 0; $i < count($_SESSION['news']); $i++){
+
+      $seccion = $db->loadSection($_SESSION['news'][$i]->IdSeccion);
+
+      echo '<section class="new">';
+      echo '<div class="row">';
+        echo '<div class="col-sm-4">';
+          echo '<img src="'.$_SESSION['news'][$i]->imagen.'" alt="imagen de noticias" class="img-fluid rounded">';
+        echo '</div>';
+        echo '<div class="col-sm-8">';
+          echo '<a href="./detail.php?id='.$_SESSION['news'][$i]->IdNoticia.'" class="news-title"><h3>'.$_SESSION['news'][$i]->titulo.'</h3></a>';
+          echo '<h5>'.$_SESSION['news'][$i]->subitituo.'</h5>';
+          echo '<p>';
+            echo $_SESSION['news'][$i]->texto;
+          echo '</p>';
+          echo '<div class="categories">';
+            echo '<a href="#categoria" class="badge badge-danger">'.$seccion.'</a>';
+          echo '</div>';
+        echo '</div>';
+      echo '</div>';
+      echo '</section>';
+
+    }
+  ?>
 
     <hr>
 
