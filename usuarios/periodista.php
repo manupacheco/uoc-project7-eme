@@ -31,7 +31,7 @@ if(empty($_SESSION['user'])){
 
     <hr>
 
-    <button class="btn btn-dark" href="./../articles/new.php">Nuevo Artículo</button>
+    <a class="btn btn-dark" href="./articles/new.php">Nuevo Artículo</a>
 
   <?php
     $db = new Client($conn);
